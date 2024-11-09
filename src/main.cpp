@@ -3,11 +3,18 @@
 
 #include "world.h"
 #include "camera.h"
+#include <chrono>
+
 
 int main()
 {
-    auto window = sf::RenderWindow{ { 1440u, 800u }, "Fact-Tori" };
-    window.setFramerateLimit(144);
+    //Window Settings
+    auto window = sf::RenderWindow{ { 1280, 720 }, "Fact-Tori" };
+    window.setFramerateLimit(60);
+    window.setPosition(sf::Vector2i(340,10)); //So i can see the terminal when the window opens
+    
+    //Initialize world
+    LoadMap();
 
     while (window.isOpen())
     {
@@ -22,11 +29,14 @@ int main()
                 window.close();
             }            
         }
-       
+        
         CameraControls();
+        
         window.clear();
-        window.setView(GetView());
+
+        window.setView(GetCam());
         DrawWorld(&window);
+             
         window.display();
     }
 }
