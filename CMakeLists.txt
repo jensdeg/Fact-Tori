@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(Fact-Tori LANGUAGES C CXX)
 
-add_executable(Fact-Tori src/main.cpp src/world/world.cpp src/controls/camera.cpp)
+add_executable(Fact-Tori src/main.cpp src/world/world.cpp src/controls/camera.cpp src/controls/placement.cpp)
 
 target_link_libraries(Fact-Tori ${CMAKE_SOURCE_DIR}/lib/sfml-graphics-d.lib)
 target_link_libraries(Fact-Tori ${CMAKE_SOURCE_DIR}/lib/sfml-audio-d.lib)

@@ -1,8 +1,16 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <nlohmann/json.hpp>
 
-int DrawWorld(sf::RenderWindow *window);
+using json = nlohmann::json;
+
+
+int DrawWorld(sf::RenderWindow *window, const json &map);
 
 void colorrandomizer();
 
-void LoadMap();
+json LoadMap();
+
+float GetTileSize();
+
+void SaveMap(json &map);

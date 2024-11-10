@@ -7,16 +7,36 @@
 float tile_size = 100.f;
 
 using json = nlohmann::json;
-json map;
 
-void LoadMap(){
+
+
+json LoadMap(){
     std::ifstream file("../resources/world.json");
-    map = json::parse(file)["map"];
-    //std::cout << map.size() << std::endl;
+    return json::parse(file)["map"];
+}
+
+void SaveMap(json &map){
+    std::ofstream file("../resources/world.json");
+
+    if (!file.is_open()) {
+        std::cerr << "Failed to save map: " << std::endl;
+        return;
+    }
+
+    json mapdata;
+    mapdata["map"] = map;
+
+    file << mapdata.dump();
+    file.close();
 }
 
 
-int DrawWorld(sf::RenderWindow *window){
+float GetTileSize(){
+    return tile_size;
+}
+
+
+int DrawWorld(sf::RenderWindow *window, const json &map){
     int x,y;
     sf::View view = GetCam();
     
@@ -29,19 +49,20 @@ int DrawWorld(sf::RenderWindow *window){
         for(y=0;y<height;y++){
             sf::Vector2f tilelocation(x * tile_size, y * tile_size);
 
-            if(!IsInFrame(tilelocation)){
-                continue;
-            }
-
             sf::RectangleShape tile(sf::Vector2(tile_size, tile_size));
-            if(map[x][y] == 0){
-                tile.setFillColor(sf::Color::White);
+            if(map[x][y] == 1 || map[x][y] == -1){
+                tile.setFillColor(sf::Color(105,105,105));
             }
-            else if(map[x][y] == 1){
+            else if(map[x][y] == 2 || map[x][y] == -2){
                 tile.setFillColor(sf::Color::Red);
             }
             else{
                 tile.setFillColor(sf::Color::Black);
+            }
+
+            if(map[x][y] < 0){
+                tile.setOutlineThickness(-10.f);
+                tile.setOutlineColor(sf::Color::White);   
             }
             tile.setPosition(tilelocation);
             window->draw(tile);

@@ -9,8 +9,8 @@ float zoomfactor = 0.1f;
 float width = 1280.f;
 float height = 720.f;
 
-float origin_x = (-width / 2) + 100;
-float origin_y = (-height / 2) + 100;
+float origin_x = (width / 2) + 100;
+float origin_y = (height / 2) + 100;
 
 sf::View cam(sf::FloatRect(origin_x, origin_y, width, height));
 
