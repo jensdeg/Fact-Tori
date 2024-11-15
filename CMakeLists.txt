@@ -16,7 +16,7 @@ target_include_directories(Fact-Tori PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/con
 
 
 set(RESOURCES_FOLDER "${CMAKE_SOURCE_DIR}/resources")
-set(DESTINATION_FOLDER "${CMAKE_BINARY_DIR}/resources")
+set(DESTINATION_FOLDER "${CMAKE_BINARY_DIR}/debug/resources")
 file(MAKE_DIRECTORY ${DESTINATION_FOLDER})
 add_custom_command(
     TARGET Fact-Tori POST_BUILD

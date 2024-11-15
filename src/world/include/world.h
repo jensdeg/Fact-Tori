@@ -13,5 +13,5 @@ public:
     void SaveMap();
     void LoadMap();
 private:
-    char* world_path = "../resources/world";
+    char* world_path = "../debug/resources/world";
 };
