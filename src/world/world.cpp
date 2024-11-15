@@ -9,12 +9,12 @@ using json = nlohmann::json;
 
 
 void World::LoadMap(){
-    std::ifstream file("../resources/world.json");
+    std::ifstream file(world_path);
     map = json::parse(file)["map"];
 }
 
 void World::SaveMap(){
-    std::ofstream file("../resources/world.json");
+    std::ofstream file(world_path);
 
     if (!file.is_open()) {
         std::cerr << "Failed to save map: " << std::endl;

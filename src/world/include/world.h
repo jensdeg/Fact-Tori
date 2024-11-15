@@ -12,4 +12,6 @@ public:
     int Draw(sf::RenderWindow *window);
     void SaveMap();
     void LoadMap();
+private:
+    char* world_path = "../resources/world";
 };
