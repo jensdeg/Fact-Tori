@@ -5,4 +5,4 @@ using json = nlohmann::json;
 
 void setMousePosition(sf::RenderWindow *window);
 
-void checkPlacement(json &map);
+void checkPlacement(World &world);

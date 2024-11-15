@@ -1,21 +1,19 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "camera.h"
+#include "world.h"
 #include <fstream>
 #include <nlohmann/json.hpp>
-
-float tile_size = 100.f;
-
 using json = nlohmann::json;
 
 
 
-json LoadMap(){
+void World::LoadMap(){
     std::ifstream file("../resources/world.json");
-    return json::parse(file)["map"];
+    map = json::parse(file)["map"];
 }
 
-void SaveMap(json &map){
+void World::SaveMap(){
     std::ofstream file("../resources/world.json");
 
     if (!file.is_open()) {
@@ -31,14 +29,8 @@ void SaveMap(json &map){
 }
 
 
-float GetTileSize(){
-    return tile_size;
-}
-
-
-int DrawWorld(sf::RenderWindow *window, const json &map){
+int World::Draw(sf::RenderWindow *window){
     int x,y;
-    sf::View view = GetCam();
     
     size_t width = map[0].size();
     size_t height = map.size();
@@ -47,9 +39,9 @@ int DrawWorld(sf::RenderWindow *window, const json &map){
 
     for (x=0;x<width;x++){
         for(y=0;y<height;y++){
-            sf::Vector2f tilelocation(x * tile_size, y * tile_size);
+            sf::Vector2f tilelocation(x * Tile_Size, y * Tile_Size);
 
-            sf::RectangleShape tile(sf::Vector2(tile_size, tile_size));
+            sf::RectangleShape tile(sf::Vector2(Tile_Size, Tile_Size));
             if(map[x][y] == 1 || map[x][y] == -1){
                 tile.setFillColor(sf::Color(105,105,105));
             }
@@ -62,7 +54,7 @@ int DrawWorld(sf::RenderWindow *window, const json &map){
 
             if(map[x][y] < 0){
                 tile.setOutlineThickness(-10.f);
-                tile.setOutlineColor(sf::Color::White);   
+                tile.setOutlineColor(sf::Color::White);  
             }
             tile.setPosition(tilelocation);
             window->draw(tile);

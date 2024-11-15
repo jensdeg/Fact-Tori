@@ -13,39 +13,44 @@ using json = nlohmann::json;
 
 int main()
 {
+    World world;
+    Camera Camera;
     //Window Settings
     auto window = sf::RenderWindow{ { 1280, 720 }, "Fact-Tori" };
     window.setFramerateLimit(60);
-    window.setPosition(sf::Vector2i(340,10)); //So i can see the terminal when the window opens
+    window.setPosition(sf::Vector2i(340,0)); //So i can see the terminal when the window opens
     
     //Initialize world
-    json map = LoadMap();
+    world.LoadMap();
+    json map = world.map;
+
+    
 
     while (window.isOpen())
     {
         for (auto event = sf::Event{}; window.pollEvent(event);)
         {
-            CameraZoom(&event);
+            Camera.ControlZoom(&event);
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Delete)){
-                SaveMap(map);
+                world.SaveMap();
                 window.close();
             }
             if (event.type == sf::Event::Closed)
             {
-                SaveMap(map);
+                world.SaveMap();
                 window.close();
             }            
         }
         
-        CameraControls();
+        Camera.ControlMovement();
         setMousePosition(&window);
-        checkPlacement(map);
+        checkPlacement(world);
 
         window.clear();
 
-        window.setView(GetCam());
-        DrawWorld(&window, map);
+        window.setView(Camera.view);
+        world.Draw(&window);
         
         window.display();
     }

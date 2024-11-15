@@ -1,12 +1,21 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-void CameraControls();
 
-void CameraZoom(sf::Event *event);
+class Camera{
+public:
+    float width = 1280.f;
+    float height = 720.f;
 
-sf::View GetCam();
+    float origin_x = (width / 2) + 100;
+    float origin_y = (height / 2) + 100;
+    
+    sf::View view = sf::View(sf::FloatRect(origin_x, origin_y, width, height));
 
-bool IsInFrame(sf::Vector2f location);
+    void ControlMovement();
+    void ControlZoom(sf::Event *event);
 
-unsigned int GetResolution();
+private:
+    float movespeed = 100;
+    float zoomfactor = 0.1f;
+};
