@@ -12,7 +12,10 @@ public:
     
     sf::View view = sf::View(sf::FloatRect(origin_x, origin_y, width, height));
 
+    // Sets up WASD cam (view) movement
     void ControlMovement();
+
+    // Sets up camera zoom controls
     void ControlZoom(sf::Event *event);
 
 private:
