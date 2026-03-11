@@ -11,8 +11,7 @@ target_link_libraries(Fact-Tori ${CMAKE_SOURCE_DIR}/lib/sfml-system-d.lib)
 
 include_directories(${CMAKE_SOURCE_DIR}/include)
 
-target_include_directories(Fact-Tori PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/world/include")
-target_include_directories(Fact-Tori PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/controls/include")
+target_include_directories(Fact-Tori PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/include")
 
 
 set(RESOURCES_FOLDER "${CMAKE_SOURCE_DIR}/resources")

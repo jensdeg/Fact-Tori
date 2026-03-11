@@ -53,7 +53,7 @@ int main()
         window.clear();
 
         window.setView(Camera.view);
-        world.Draw(&window);
+        world.Draw(&window, Camera);
         
         window.display();
         // ================================================== //

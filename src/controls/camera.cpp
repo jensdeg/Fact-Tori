@@ -29,13 +29,17 @@ void Camera::ControlZoom(sf::Event *event){
     }
 }
 
-// bool IsInFrame(sf::Vector2f location){
-//     float camborder_x = view.getSize().x;
-//     float camborder_y = view.getSize().y;
-//     if(location.y < view.getCenter().y + camborder_y && location.y > view.getCenter().y - camborder_y){
-//         if(location.x < view.getCenter().x + camborder_x && location.x > view.getCenter().x - camborder_x)
-//         return true;
-//     }
-//     return false;
-// }
+bool Camera::IsInFrame(sf::Vector2f location, float margin){
+    float left_bound = view.getCenter().x - (view.getSize().x / 2) - margin;
+    float right_bound = view.getCenter().x + (view.getSize().x / 2) + margin;
+    float top_bound = view.getCenter().y - (view.getSize().y / 2) - margin;
+    float bottom_bound = view.getCenter().y + (view.getSize().y / 2) + margin;
+
+    if(location.x > left_bound && location.x < right_bound){
+        if(location.y > top_bound && location.y < bottom_bound){
+            return true;
+        }
+    }
+    return false;
+}
 

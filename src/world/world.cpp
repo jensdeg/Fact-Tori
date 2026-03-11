@@ -6,8 +6,6 @@
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
 
-
-
 void World::LoadMap(){
     std::ifstream file(world_path);
     map = json::parse(file)["map"];
@@ -28,8 +26,23 @@ void World::SaveMap(){
     file.close();
 }
 
+void World::SaveMapDebug(){
+    std::ofstream file("C://Users//jensd//dev//Fact-Tori//resources//world");
 
-int World::Draw(sf::RenderWindow *window){
+    if (!file.is_open()) {
+        std::cerr << "Failed to save map: " << std::endl;
+        return;
+    }
+
+    json mapdata;
+    mapdata["map"] = map;
+
+    file << mapdata.dump();
+    file.close();
+}
+
+
+int World::Draw(sf::RenderWindow *window, Camera &Camera){
     int x,y;
     
     size_t width = map[0].size();
@@ -40,12 +53,15 @@ int World::Draw(sf::RenderWindow *window){
     for (x=0;x<width;x++){
         for(y=0;y<height;y++){
             sf::Vector2f tilelocation(x * Tile_Size, y * Tile_Size);
+            if(!Camera.IsInFrame(tilelocation, Tile_Size)){
+                continue;
+            }
 
             sf::RectangleShape tile(sf::Vector2(Tile_Size, Tile_Size));
-            if(map[x][y] == 1 || map[x][y] == -1){
+            if(map[x][y] == empty || map[x][y] == empty * -1){
                 tile.setFillColor(sf::Color(105,105,105));
             }
-            else if(map[x][y] == 2 || map[x][y] == -2){
+            else if(map[x][y] == generator || map[x][y] == generator *-1){
                 tile.setFillColor(sf::Color::Red);
             }
             else{
@@ -62,6 +78,6 @@ int World::Draw(sf::RenderWindow *window){
         }
     }
 
-    //std::cout << "tilesRendered: " << tilesrendered << std::endl;
+    std::cout << "tilesRendered: " << tilesrendered << std::endl;
     return EXIT_SUCCESS;
 };

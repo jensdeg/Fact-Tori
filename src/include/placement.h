@@ -5,6 +5,7 @@ using json = nlohmann::json;
 
 // Sets Mouse position relative to the map
 void setMousePosition(sf::RenderWindow *window);
+sf::Vector2f getMousePosition(sf::RenderWindow *window);
 
 // checks mouse postition for placements
 void checkPlacement(World &world);

@@ -18,6 +18,8 @@ public:
     // Sets up camera zoom controls
     void ControlZoom(sf::Event *event);
 
+    bool IsInFrame(sf::Vector2f location, float margin = 0.0f);
+
 private:
     float movespeed = 100;
     float zoomfactor = 0.1f;
