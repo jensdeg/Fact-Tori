@@ -3,7 +3,7 @@ project(Fact-Tori LANGUAGES C CXX)
 
 add_executable(Fact-Tori src/main.cpp src/world/world.cpp src/controls/camera.cpp src/controls/placement.cpp)
 
-set(SFML_LIB_DIR "${CMAKE_SOURCE_DIR}/lib")
+set(SFML_LIB_DIR "${CMAKE_SOURCE_DIR}/thirdparty/lib")
 
 target_link_libraries(Fact-Tori
     debug     ${SFML_LIB_DIR}/sfml-graphics-d.lib
@@ -18,7 +18,7 @@ target_link_libraries(Fact-Tori
     optimized ${SFML_LIB_DIR}/sfml-system.lib
 )
 
-include_directories(${CMAKE_SOURCE_DIR}/include)
+include_directories(${CMAKE_SOURCE_DIR}/thirdparty/include)
 
 target_include_directories(Fact-Tori PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/src/include")
 
@@ -33,7 +33,7 @@ add_custom_command(
         ${DESTINATION_FOLDER}
 )
 
-set(SFML_BIN_DIR "${CMAKE_SOURCE_DIR}/bin")
+set(SFML_BIN_DIR "${CMAKE_SOURCE_DIR}/thirdparty/bin")
 foreach(mod IN ITEMS graphics audio network window system)
     add_custom_command(TARGET Fact-Tori POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_if_different
