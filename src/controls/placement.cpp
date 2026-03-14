@@ -8,8 +8,6 @@
 sf::Vector2f mousepos;
 using json = nlohmann::json;
 
-int tempx,tempy,tempvalue = NULL;
-
 int selectedbuilding = generator;
 
 void setMousePosition(sf::RenderWindow *window){
@@ -32,35 +30,18 @@ bool MouseIsOnTile(int x,int y, float tilesize){
 }
 
 void checkPlacement(World &world){
-    int x,y;
-
     size_t width =  world.map[0].size();
     size_t height = world.map.size();
-
-    if(world.map[tempx][tempy] < 0){
-        world.map[tempx][tempy] = tempvalue;
-    }
-    
-    for (x=0;x<width;x++){
-        for(y=0;y<height;y++){
-            if(world.map[x][y] < 0){
-                int newvalue = world.map[x][y] *-1;
-                world.map[x][y] = newvalue;
-            }
+ 
+    for (int x = 0; x < width; x++){
+        for(int y = 0; y < height; y++){
             if(MouseIsOnTile(x, y, world.Tile_Size)){
-                //placing
                 if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)){
                     world.map[x][y] = generator;
                 }
-                //removing
                 if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Right)){
                     world.map[x][y] = empty;
                 }
-                tempvalue = world.map[x][y];
-                tempx = x;
-                tempy = y;
-                int newvalue = world.map[x][y] *-1;
-                world.map[x][y] = newvalue;
             } 
         }
     } 

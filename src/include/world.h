@@ -20,7 +20,6 @@ public:
 
     // saves map to the world file
     void SaveMap();
-    void SaveMapDebug();
 
     // loads map from the world file
     void LoadMap();

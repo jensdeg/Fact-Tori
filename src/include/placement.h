@@ -9,3 +9,5 @@ sf::Vector2f getMousePosition(sf::RenderWindow *window);
 
 // checks mouse postition for placements
 void checkPlacement(World &world);
+
+bool MouseIsOnTile(int x,int y, float tilesize);

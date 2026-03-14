@@ -10,7 +10,6 @@ using json = nlohmann::json;
 
 int main()
 {
-
     World world;
     Camera Camera;
 
